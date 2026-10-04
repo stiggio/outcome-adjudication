@@ -1,0 +1,210 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "success-spec.schema.json",
+  "title": "Success specification",
+  "description": "The structured definition of an intended outcome, compiled from a planned task before it runs. Pinned as part of the decider bundle.",
+  "type": "object",
+  "required": [
+    "spec_version",
+    "task_class",
+    "goals",
+    "predicates",
+    "judged_criteria",
+    "constraints",
+    "integrity_checks",
+    "matured_criteria"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "spec_version": {
+      "type": "string",
+      "description": "Version of this spec; changing it is a change order."
+    },
+    "task_class": {
+      "type": "string",
+      "description": "Task class used by the pricing function."
+    },
+    "planned_task": {
+      "type": "string",
+      "description": "The planned task as written by the builder."
+    },
+    "goals": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "description",
+          "mandatory",
+          "weight"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "mandatory": {
+            "type": "boolean"
+          },
+          "weight": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        }
+      }
+    },
+    "predicates": {
+      "type": "array",
+      "description": "Checkable against world state; decided at Tier 0.",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "goal",
+          "check",
+          "evidence_source",
+          "run_by"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "goal": {
+            "type": "string",
+            "description": "Goal id this predicate supports."
+          },
+          "check": {
+            "type": "string"
+          },
+          "evidence_source": {
+            "type": "string"
+          },
+          "run_by": {
+            "const": "evaluator",
+            "description": "Checks are always run by the evaluator, never taken from the agent."
+          }
+        }
+      }
+    },
+    "judged_criteria": {
+      "type": "array",
+      "description": "Need judgment; Tier 1 typed questions, Tier 2 if unsure.",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "goal",
+          "question",
+          "answer_type",
+          "threshold"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "goal": {
+            "type": "string"
+          },
+          "question": {
+            "type": "string"
+          },
+          "answer_type": {
+            "enum": [
+              "choice",
+              "score",
+              "yes_no"
+            ]
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "threshold": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        }
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "description": "Must not happen; a violation makes the outcome harmful.",
+      "items": {
+        "$ref": "#/$defs/check"
+      }
+    },
+    "integrity_checks": {
+      "type": "array",
+      "description": "Was success reached legitimately?",
+      "items": {
+        "$ref": "#/$defs/check"
+      }
+    },
+    "matured_criteria": {
+      "type": "array",
+      "description": "Only knowable later; decided by the maturation clock.",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "check",
+          "window"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "check": {
+            "type": "string"
+          },
+          "window": {
+            "type": "string",
+            "description": "ISO 8601 duration, e.g. P14D."
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "check": {
+      "type": "object",
+      "required": [
+        "id",
+        "check",
+        "decided_by"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "check": {
+          "type": "string"
+        },
+        "decided_by": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "enum": [
+              "tier_0",
+              "tier_1",
+              "tier_2",
+              "tier_3"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

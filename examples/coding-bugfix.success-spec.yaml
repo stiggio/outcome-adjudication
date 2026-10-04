@@ -1,0 +1,23 @@
+# Worked example from section 9 of the article.
+spec_version: coding-bugfix-v1
+task_class: bugfix
+planned_task: >
+  Fix the bug described in issue #123 without changing the public API,
+  and add a regression test.
+goals:
+  - {id: g1, description: The reported bug is fixed, mandatory: true, weight: 0.6}
+  - {id: g2, description: A regression test guards the fix, mandatory: true, weight: 0.3}
+  - {id: g3, description: The public API is unchanged, mandatory: true, weight: 0.1}
+predicates:
+  - {id: p1, goal: g2, check: new test fails on base commit and passes on head, evidence_source: evaluator sandbox, run_by: evaluator}
+  - {id: p2, goal: g1, check: existing test suite passes, evidence_source: evaluator sandbox, run_by: evaluator}
+  - {id: p3, goal: g3, check: public API surface unchanged, evidence_source: static analysis of diff, run_by: evaluator}
+judged_criteria:
+  - {id: j1, goal: g1, question: "Does the change address the root cause rather than the symptom?", answer_type: yes_no, threshold: 0.8}
+constraints:
+  - {id: c1, check: no existing tests deleted or assertions weakened, decided_by: [tier_0, tier_1]}
+integrity_checks:
+  - {id: i1, check: "no hardcoding of the issue's specific inputs", decided_by: [tier_1, tier_2]}
+matured_criteria:
+  - {id: m1, check: change not reverted, window: P14D}
+  - {id: m2, check: no incident linked to the change, window: P14D}

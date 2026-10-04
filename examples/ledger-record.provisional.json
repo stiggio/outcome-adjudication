@@ -1,0 +1,31 @@
+{
+  "record_id": "or_0001",
+  "work_unit": "wu_7f3c",
+  "tenant_chain": [
+    "platform",
+    "builder_12",
+    "customer_88"
+  ],
+  "contract_version": "c-2026-10-v3",
+  "decider_bundle": "sha256:814ce280decc7f0467a7c1353d58edb8862cd40b6e9f9ad4878b34dd4dcf9f13",
+  "evidence": [
+    "sha256:df087996d45b03e7eb8c133c0298fd98d35113fca26aaba58612fef3cc212cad",
+    "sha256:266887ea2b1da99443d2d8ef074f24a6ba041d145b9fe87aa261a221208ff495",
+    "sha256:a9233c4908a3d5793d544fa1f15085d572c3e97e7cb89a6f96f7c104a19573c3"
+  ],
+  "input_snapshot": "sha256:cd03cc43cb2a8c581c4872051d5bb63328785fa0dd2b238508ef84974f99d769",
+  "state": "provisional",
+  "outcome": {
+    "level": "fulfilled",
+    "goals_met": 1.0,
+    "constraints_ok": true,
+    "integrity_ok": true,
+    "p_j1_root_cause": 0.93
+  },
+  "decided_by": "tier_1",
+  "reason": "all predicates passed; judged criteria above threshold",
+  "occurred_at": "2026-10-02T14:05:11Z",
+  "recorded_at": "2026-10-02T14:05:12Z",
+  "supersedes": null,
+  "prev_hash": "sha256:71547e237559add83f6c9279fdb5762eafee857a1060e2d97c0316a70cefb6ba"
+}

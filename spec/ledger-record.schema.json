@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ledger-record.schema.json",
+  "title": "Outcome ledger record",
+  "description": "One append-only record. Corrections are new records that supersede old ones; nothing is edited.",
+  "type": "object",
+  "required": [
+    "record_id",
+    "work_unit",
+    "tenant_chain",
+    "contract_version",
+    "decider_bundle",
+    "evidence",
+    "input_snapshot",
+    "state",
+    "outcome",
+    "decided_by",
+    "reason",
+    "occurred_at",
+    "recorded_at",
+    "supersedes",
+    "prev_hash"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "record_id": {
+      "type": "string"
+    },
+    "work_unit": {
+      "type": "string",
+      "description": "The billable subject, stitched across sessions and channels."
+    },
+    "tenant_chain": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      },
+      "description": "Platform, builder, paying customer, in that order."
+    },
+    "contract_version": {
+      "type": "string"
+    },
+    "decider_bundle": {
+      "$ref": "#/$defs/hash",
+      "description": "Hash of base model, adapter, success spec, calibration map and pricing function."
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/hash"
+      }
+    },
+    "input_snapshot": {
+      "$ref": "#/$defs/hash",
+      "description": "Exact input the decider saw, for replay."
+    },
+    "state": {
+      "enum": [
+        "attempted",
+        "provisional",
+        "matured",
+        "final",
+        "superseded",
+        "disputed",
+        "adjudicated"
+      ]
+    },
+    "outcome": {
+      "type": "object",
+      "required": [
+        "level",
+        "goals_met",
+        "constraints_ok",
+        "integrity_ok"
+      ],
+      "properties": {
+        "level": {
+          "enum": [
+            "fulfilled",
+            "partial",
+            "not_fulfilled",
+            "harmful"
+          ]
+        },
+        "goals_met": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "constraints_ok": {
+          "type": "boolean"
+        },
+        "integrity_ok": {
+          "type": "boolean"
+        },
+        "ai_work_share": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      },
+      "additionalProperties": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "description": "Calibrated probabilities for judged criteria, keyed p_<criterion>."
+      }
+    },
+    "decided_by": {
+      "enum": [
+        "tier_0",
+        "tier_1",
+        "tier_2",
+        "tier_3"
+      ]
+    },
+    "reason": {
+      "type": "string"
+    },
+    "occurred_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the outcome happened."
+    },
+    "recorded_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the system learned it."
+    },
+    "supersedes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "prev_hash": {
+      "$ref": "#/$defs/hash",
+      "description": "Hash of the previous record in this tenant's chain for the period."
+    }
+  },
+  "$defs": {
+    "hash": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    }
+  }
+}

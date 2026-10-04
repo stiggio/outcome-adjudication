@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "If you use or discuss this work, please cite it as below."
+type: report
+title: "Paying for Outcomes Is an Adjudication Problem: A Reference Design for Outcome-Based Pricing of AI Agents (RFC 0001, v0.1)"
+authors:
+  - family-names: Sasson
+    given-names: Dor
+    affiliation: Stigg
+version: 0.1.0
+date-released: 2026-10-04
+license:
+  - AGPL-3.0-only
+  - CC-BY-SA-4.0
+abstract: >-
+  Outcome-based pricing for AI agents stalls because nobody trustworthy decides
+  what counted as an outcome. This RFC proposes a reference design: success
+  specifications compiled from the planned task, a four-tier decision cascade
+  that puts facts before opinions, pinned and calibrated deciders that act as the
+  contract's definition of an outcome, and an append-only outcome ledger, with a
+  contracted overbilling bound and pre-registered predictions.
+keywords:
+  - outcome-based pricing
+  - AI agents
+  - agent evaluation
+  - LLM-as-a-judge
+  - conformal prediction
+  - reward hacking
+  - usage-based billing
+  - revenue recognition
+  - metering
