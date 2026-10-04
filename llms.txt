@@ -1,0 +1,24 @@
+# Outcome Adjudication
+
+> An open specification and research program for deciding, auditably, whether an AI agent's work counted as a billable outcome. Core claim: outcome-based pricing is an adjudication problem, not a metering problem.
+
+The design compiles a success specification from each planned task, decides outcomes through a four-tier cascade (facts, fast calibrated decider, deep judge, human panel), pins the decider as the contract's definition of an outcome, and records every decision in an append-only, bitemporal, hash-chained outcome ledger. Billing error is bounded by a contracted overbilling rate (alpha), and the share of work decided automatically is reported as the auto-decidable fraction, ADF(alpha). Status: RFC v0.1, no implementation code yet.
+
+## Docs
+- [RFC 0001: Paying for Outcomes Is an Adjudication Problem](docs/rfc/0001-outcome-adjudication.md): full proposal, evidence, architecture and open questions
+- [Concepts](docs/concepts.md): defined vocabulary (adjudication layer, success specification, definition-as-model, ADF, outcome ledger)
+- [FAQ](docs/faq.md): short answers to common questions
+
+## Spec
+- [Success specification schema](spec/success-spec.schema.json): JSON Schema for a compiled success spec
+- [Ledger record schema](spec/ledger-record.schema.json): JSON Schema for one outcome ledger record
+- [Decider interface](spec/decider-interface.md): contract any decision model must honor
+- [Metrics](spec/metrics.md): alpha, ADF, calibration error, replay reproduction rate
+
+## Research
+- [Pre-registration](experiment/PREREGISTRATION.md): hypotheses H1 to H6 and the v0.2 experiment design
+- [Prior art](docs/prior-art.md): related research and older industries that pay for outcomes
+
+## Optional
+- [Roadmap](ROADMAP.md)
+- [Contributing](CONTRIBUTING.md)

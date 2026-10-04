@@ -1,0 +1,19 @@
+# Control case from the RFC: customer support, where truth arrives within days.
+spec_version: support-billing-question-v1
+task_class: support_resolution
+planned_task: >
+  Resolve a customer's question about a duplicate charge, issuing a refund only
+  within the published refund policy.
+goals:
+  - {id: g1, description: The customer's question is answered correctly, mandatory: true, weight: 0.6}
+  - {id: g2, description: Any refund issued matches the duplicate charge, mandatory: false, weight: 0.4}
+predicates:
+  - {id: p1, goal: g2, check: refund in billing system equals duplicate charge amount, evidence_source: billing system of record, run_by: evaluator}
+judged_criteria:
+  - {id: j1, goal: g1, question: "Was the customer's question answered correctly and completely?", answer_type: yes_no, threshold: 0.85}
+constraints:
+  - {id: c1, check: refund does not exceed policy limit, decided_by: [tier_0]}
+integrity_checks:
+  - {id: i1, check: "agent did not claim an action it did not take", decided_by: [tier_1, tier_2]}
+matured_criteria:
+  - {id: m1, check: no reopen on any channel for the same identity-stitched work unit, window: P7D}
