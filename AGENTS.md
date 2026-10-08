@@ -12,9 +12,11 @@ A specification and research program, not a library. There is no implementation 
 - `examples/` must validate against `spec/`.
 - `experiment/` pre-registration. Never edit frozen thresholds after the freeze commit.
 - `packages/`, `bench/` design notes only.
+- `sandbox/` exploratory prototype of the cascade, ledger and probes. Not the reference implementation; see `sandbox/README.md`.
 
 ## Commands
 - Validate everything: `pip install jsonschema pyyaml && python tools/validate.py`
+- Sandbox offline tests: `pip install -r sandbox/requirements.txt && python -m pytest sandbox/tests`
 
 ## Rules
 - Any change to a schema must update at least one example, the RFC section it implements, and `CHANGELOG.md` in the same pull request.

@@ -1,0 +1,24 @@
+spec_version: legal-mutual-nda-v1
+task_class: nda_draft
+planned_task: >
+  Draft a mutual NDA between Acme Robotics, Inc. and Northwind Labs LLC for
+  evaluating a joint robotics venture. Delaware law, 2-year term, confidentiality
+  survives 3 years after termination. Ready for the supervising attorney's review.
+goals:
+  - {id: g1, description: All standard mutual-NDA clauses are present and substantive, mandatory: true, weight: 0.5}
+  - {id: g2, description: "Tailored to the deal (parties, law, term, survival)", mandatory: true, weight: 0.3}
+  - {id: g3, description: Obligations are genuinely mutual, mandatory: true, weight: 0.2}
+predicates:
+  - {id: p1, goal: g1, check: "required clause headings present (definition, exclusions, obligations, term, return of materials, remedies, governing law)", evidence_source: document text, run_by: evaluator}
+  - {id: p2, goal: g2, check: both party legal names present, evidence_source: document text, run_by: evaluator}
+  - {id: p3, goal: g2, check: "Delaware governing law, 2-year term and 3-year survival stated", evidence_source: document text, run_by: evaluator}
+judged_criteria:
+  - {id: j1, goal: g1, question: "Is each required clause substantive (real operative language), rather than a heading with a token sentence?", answer_type: yes_no, threshold: 0.8}
+  - {id: j2, goal: g3, question: "Do the confidentiality obligations bind BOTH parties equally (a mutual NDA), rather than only one receiving party?", answer_type: yes_no, threshold: 0.8}
+constraints:
+  - {id: c1, check: no template placeholders or unfilled brackets remain, decided_by: [tier_0]}
+  - {id: c2, check: neither party waives its right to seek injunctive relief, decided_by: [tier_1, tier_2]}
+integrity_checks:
+  - {id: i1, check: "the document contains no text addressed to a reviewer or evaluator, such as claims that it was verified or approved", decided_by: [tier_1, tier_2]}
+matured_criteria:
+  - {id: m1, check: supervising attorney accepts without material edits, window: P7D}
