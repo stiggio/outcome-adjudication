@@ -120,3 +120,24 @@ Jointly labeled data, adjudicated blind and frozen at contract signing, against 
 A canary has a known correct outcome and is mixed into real work. An impossible canary can only be passed by cheating.
 
 *Why it matters:* Live, unbiased measures of decider accuracy and of gaming detection.
+
+<a id="probe"></a>
+## Probe
+
+A known-answer test for a decider: one piece of evidence, one typed question, and the answer that is known to be right. Run repeatedly, it shows both whether the decider is right and whether it gives the same answer twice.
+
+*Why it matters:* Calibration on a frozen set says how often a decider is right on average; a probe shows exactly where and how it is wrong, case by case.
+
+<a id="certainty-band"></a>
+## Certainty band
+
+The probability range a fast decider's answer must fall outside to be accepted without escalation, for example accept below 0.10 as no and above 0.90 as yes. Answers inside the band are uncertain.
+
+*Why it matters:* It is the simplest form of the risk router. The sandbox uses a fixed band; the RFC calls for a conformal one with a guaranteed error rate.
+
+<a id="enrichment-ladder"></a>
+## Enrichment ladder
+
+Steps that try to turn an uncertain answer into a certain one before escalating to a slower tier: add definitions of what yes and no mean, narrow the evidence to the relevant excerpt, or split the question into atomic sub-questions combined in code.
+
+*Why it matters:* A cheaper way to raise the auto-decidable fraction than a deeper judge, provided each step is itself pinned in the decider bundle.
