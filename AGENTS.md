@@ -12,7 +12,7 @@ A specification and research program, not a library. There is no implementation 
 - `examples/` must validate against `spec/`.
 - `experiment/` pre-registration. Never edit frozen thresholds after the freeze commit.
 - `packages/`, `bench/` design notes only.
-- `sandbox/` exploratory prototype of the cascade, ledger and probes. Not the reference implementation; see `sandbox/README.md`.
+- `sandbox/` exploratory prototype of the cascade, ledger and probes. Not the reference implementation; quickstart in `sandbox/README.md`, full detail in `sandbox/GUIDE.md`.
 
 ## Commands
 - Validate everything: `pip install jsonschema pyyaml && python tools/validate.py`
